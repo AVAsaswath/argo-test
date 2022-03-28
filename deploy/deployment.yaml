@@ -17,7 +17,7 @@ spec:
         #zone: US
       containers:
         - name: signupfe-app
-          image: docker.io/saswathgv/argo:455d864
+          image: docker.io/saswathgv/test:1.0.0
          
 ---
 apiVersion: v1
