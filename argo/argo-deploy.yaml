@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: devops-toolkit
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+  annotations:
+    argocd-image-updater.argoproj.io/image-list: docker.io/saswathgv/argo:latest
+    argocd-image-updater.argoproj.io/git-branch: main
+spec:
+  project: production
+  source:
+    repoURL: https://saswath1-admin@bitbucket.org/saswath1/argo-test2.git
+    targetRevision: HEAD
+    path: deploy
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: rishab
+  syncPolicy:
+    automated:
+      selfHeal: true
+      prune: true
+      allowEmpty: true
+  syncOptions:
+         CreateNamespace: true    

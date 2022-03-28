@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-signupfe-app-depl
+  namespace: image-updater-argo
+spec:
+  selector:
+    matchLabels:
+      app: signupfe-app
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: signupfe-app
+    spec:
+      #nodeSelector: 
+        #zone: US
+      containers:
+        - name: signupfe-app
+          image: docker.io/saswathgv/argo:455d864
+         
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: my-signupfe-app-srv
+  namespace: rishab
+spec:
+  type: LoadBalancer
+  selector:
+    app: signupfe-app
+  ports:
+    - name: my-signupfe-app 
+      port: 3000
+      targetPort: 3000 
